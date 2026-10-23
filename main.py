@@ -35,9 +35,52 @@ def main():
         choice = input("Choose an option: ")
 
         match choice:
+            case "1":
+                available_animals = get_available_animals(animals)
+
+                if available_animals:
+                    show_animals(available_animals)
+                else:
+                    print("No available animals.")
+
+            case "2":
+                animal_id = input("Enter animal ID: ")
+
+                if animal_id.isdigit():
+                    animal_id = int(animal_id)
+                    animal = find_animal_by_id(animals, animal_id)
+
+                    if animal == None:
+                        print("Animal not found.")
+
+                    elif animal["available"] == False:
+                        print("Animal already adopted.")
+
+                    else:
+                        adopter_name = input("What is your name? ")
+
+                        adoption = create_adoption(animal, adopter_name)
+                        add_adoption(adoptions, adoption)
+                        update_animal_status(animals, adoption)
+
+                        save_animals("data/animals.json", animals)
+                        save_adoptions("data/adoptions.json", adoptions)
+
+                        print("Adoption successful!")
+
+                else:
+                    print("Please enter a valid number.")
+
+
+            case "3":
+                if adoptions:
+                    show_adoptions(adoptions)
+                else:
+                    print("No adoptions.")
+
             case "4":
                 print()
-                print("Goodybe!")
+                print("Goodbye!")
                 print()
                 break
             case _:

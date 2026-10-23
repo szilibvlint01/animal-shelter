@@ -40,5 +40,5 @@ def update_animal_status(animals, adoption):
     animal = find_animal_by_id(animals, adoption["animal_id"])
 
     if animal:
-        animal["available"] = Falsey
+        animal["available"] = False
 
